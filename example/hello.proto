@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package helloworld;
+
+message HelloTestItem
+{
+    int64 testid = 1;
+    int64 ruleid = 2;
+}
+    
+    
+message HelloTestData 
+{
+    string sv = 1   ;
+    repeated HelloTestItem items = 2 ;
+    repeated int64 k = 3;
+    HelloTestItem tk = 4;
+    map<int32, string> tm = 5;
+}

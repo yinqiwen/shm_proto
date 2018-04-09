@@ -1,0 +1,14 @@
+*.o
+*.so
+*.a
+*.bak
+/Debug
+~*
+.kv_engine
+core
+a.out
+test1
+include/
+.cproject
+.settings
+.project
