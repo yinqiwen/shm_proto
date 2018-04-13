@@ -25,7 +25,7 @@
  *CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  *ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  *THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ */
 
 #ifndef SHM_PROTO_HPP_
 #define SHM_PROTO_HPP_
@@ -39,16 +39,20 @@ namespace shm_proto
 {
     typedef std::function<void(void*, const void*)> ProtoReader;
     typedef std::function<void(const void*, void*)> ProtoWriter;
-    typedef std::function<void*(mmdata::MMData&)> InstanceConstructor;
-    typedef std::function<void(mmdata::MMData&,void*)> InstanceDestructor;
+    typedef void* InstanceConstructor(mmdata::MMData&);
+    typedef void InstanceDestructor(mmdata::MMData&, void*);
     typedef std::function<const void*(const void*, const std::string& name)> FieldReader;
     struct ShmProtoFunctors
     {
-            InstanceConstructor Create;
-            InstanceDestructor Destroy;
+            InstanceConstructor* Create;
+            InstanceDestructor* Destroy;
             ProtoReader Read;
             ProtoWriter Write;
             FieldReader GetField;
+            ShmProtoFunctors()
+                    : Create(NULL), Destroy(NULL)
+            {
+            }
     };
     class ShmProtoFactory
     {
